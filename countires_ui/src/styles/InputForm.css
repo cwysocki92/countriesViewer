@@ -1,0 +1,33 @@
+.input-form-label {
+	font-weight: 700;
+	display: inline-block;
+	width: 125px;
+}
+
+.input-form-wrapper {
+	margin: 10px;
+}
+
+.input-form-submit {
+	width: 100px;
+	height: 50px;
+	font-size: 20px;
+}
+
+.input-form-input {
+	width: 200px;
+}
+
+.input-form-button-wrapper {
+	width: 125px;
+	display: inline-block;
+}
+
+.submission-error {
+	word-wrap: break-word;
+	display: inline-block;
+	width: 200px;
+	height: 100%;
+	vertical-align: middle;
+	color: red;
+}
