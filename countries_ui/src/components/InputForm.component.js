@@ -34,8 +34,10 @@ class InputForm extends Component {
 		} else {
 			this.setState({submissionError: true})
 		}
+		// TODO check if the country code is valid (2 or 3 characters)
 	}
 
+// TODO add a check box for full name for country
 	render() {
 		let {
 			countryName,
