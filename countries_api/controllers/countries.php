@@ -6,7 +6,7 @@ class Countries {
 	function __construct() {
 		$this->countriesModel = new CountriesModel();
 	}
-
+	
 	public function get($get) {
 		$name = $get['name'];
 		$fullName = boolval($get['fullName']);
@@ -18,7 +18,7 @@ class Countries {
 			$resp = $this->countriesModel->getCountries($name, $fullName, $code);
 			$this->response(200, 'Countries', $resp);
 		} else {
-			$this->response(400, 'name, or code is required.', NULL);
+			$this->response(400, 'name or code is required.', NULL);
 		}
 	}
 

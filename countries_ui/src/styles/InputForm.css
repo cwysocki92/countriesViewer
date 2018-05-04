@@ -1,7 +1,15 @@
 .input-form-label {
+	margin: 10px;
 	font-weight: 700;
 	display: inline-block;
 	width: 125px;
+}
+
+.input-form-label--checkbox {
+	margin: 10px;
+	font-weight: 700;
+	display: inline-block;
+	width: 180px;
 }
 
 .input-form-wrapper {

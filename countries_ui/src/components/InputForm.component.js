@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/InputForm.css';
 
+const countriesApiUrl = 'http://localhost:8000/countries_api/countries';
+
 // TODO prop types!
 class InputForm extends Component {
 	constructor(props) {
@@ -8,7 +10,8 @@ class InputForm extends Component {
 		this.state = {
 			countryName: "",
 			countryCode: "",
-			submissionError: false
+			submissionError: false,
+			fullName: false,
 		}
 	}
 
@@ -26,23 +29,42 @@ class InputForm extends Component {
 		}
 	}
 
+	fetchCountries = () => {
+		let {countryName, countryCode, submissionError, fullName} = this.state;
+		let params = "?";
+		if (countryName) {
+			params += `name=${countryName}${fullName ? '&fullName=true' : ''}`;
+		} else {
+			params += `code=${countryCode}`;
+		}
+		fetch(`${countriesApiUrl}/${params}`)
+	}
+
 	onSubmit = () => {
 		let {countryName, countryCode} = this.state;
 		let {onSubmit} = this.props;
 		if (countryName || countryCode) {
-			onSubmit && onSubmit(countryName, countryCode);
+			this.fetchCountries();
+			// onSubmit && onSubmit(countryName, countryCode);
 		} else {
 			this.setState({submissionError: true})
 		}
 		// TODO check if the country code is valid (2 or 3 characters)
 	}
 
-// TODO add a check box for full name for country
+	onFullNameCheck = () => {
+		this.setState({
+			fullName: !this.state.fullName
+		})
+	}
+
+	// TODO make sure only name or code is provided
 	render() {
 		let {
 			countryName,
 			countryCode,
 			submissionError,
+			fullName,
 		} = this.state;
 
 		return (
@@ -61,6 +83,17 @@ class InputForm extends Component {
 						onChange={(e) => this.handleCountryNameChange(e.target.value)}
 						id="countryName"
 						className="input-form-input"
+					/>
+					<label 
+						htmlFor="countryName"
+						className="input-form-label--checkbox"			
+					>
+						Use Country Full Name
+					</label>
+					<input
+						type="checkbox"
+						checked={fullName}
+						onChange={this.onFullNameCheck}
 					/>
 				</div>
 				<div className="input-form-wrapper">

@@ -12,6 +12,7 @@ class CountriesModel {
 			CURLOPT_RETURNTRANSFER => True
 		));
 		
+		// TODO determine sorting?  the spec sheet mentioned it
 		$result = curl_exec($this->curl);
 		// decode now, to avoid being encoded twice
 		return json_decode($result);
