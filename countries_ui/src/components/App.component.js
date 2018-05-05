@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import InputForm from './InputForm.component.js';
+import CountriesDisplay from './CountriesDisplay.component.js';
 
 const countriesApiUrl = 'http://localhost:8000/countries_api/countries';
 
@@ -26,10 +27,7 @@ class App extends Component {
 			.then((response) => response.json())
 			.then((response) => {
 				if (response.status === 200) {
-					this.setState({
-						// Only insert response into state if the response contained countries
-						countries: response.data.constructor === Array ? response.data : []
-					})
+					this.setState({countries: response.data});
 				}
 			})
 	}
@@ -42,6 +40,9 @@ class App extends Component {
 				<InputForm
 					fetchCountries={this.fetchCountries}
 					resultsFound={countries.length > 0}
+				/>
+				<CountriesDisplay
+					countries={countries}
 				/>
 			</div>
 		);

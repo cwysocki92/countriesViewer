@@ -1,3 +1,9 @@
+.input-form {
+	width: 50%;
+	display: inline-block;
+	float: left;
+}
+
 .input-form-label {
 	margin: 10px;
 	font-weight: 700;
@@ -23,7 +29,7 @@
 	margin-left: 10px;
 }
 
-.input-form--wrapper {
+.input-form-input--wrapper {
 	margin: 10px;
 }
 
@@ -31,6 +37,7 @@
 	width: 100px;
 	height: 50px;
 	font-size: 20px;
+	margin-bottom: 10px;
 }
 
 .input-form-input {

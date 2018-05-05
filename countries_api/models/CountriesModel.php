@@ -7,6 +7,7 @@ class CountriesModel {
 
 	public function getCountries($name, $fullName, $code) {
 		$url = $this->generateUrl($name, $fullName, $code);
+
 		curl_setopt_array($this->curl, array(
 			CURLOPT_URL => $url,
 			CURLOPT_RETURNTRANSFER => True
@@ -15,6 +16,14 @@ class CountriesModel {
 		$result = curl_exec($this->curl);
 		$result = json_decode($result);
 		if (count($result) <= 1) {
+			// case of no results being found
+			if ($result->status && $result->status === 404) {
+				return [];
+			}
+			// single results from code do not return data as array
+			if (!is_array($result)) {
+				$result = [$result];
+			}
 			return $result;
 		}
 
@@ -25,7 +34,7 @@ class CountriesModel {
 			if ($nameDiff !== 0) {
 				return $nameDiff;
 			}
-			// TODO determine if this is even needed.  Countries shouldnt ever have the same name
+			// country names should always be unique, but if they aren't, sort further by population
 			return $first->population - $second->population;
 		});
 

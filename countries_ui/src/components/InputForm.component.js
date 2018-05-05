@@ -62,7 +62,7 @@ class InputForm extends Component {
 
 		return (
 			<form className="input-form">
-				<div className="input-form--wrapper">
+				<div className="input-form-input--wrapper">
 					<label 
 						htmlFor="countryName"
 						className="input-form-label"			
@@ -93,7 +93,7 @@ class InputForm extends Component {
 						/>
 					</div>
 				</div>
-				<div className="input-form--wrapper">
+				<div className="input-form-input--wrapper">
 					<label 
 						htmlFor="countryCode"
 						className="input-form-label"			
@@ -110,7 +110,7 @@ class InputForm extends Component {
 						className="input-form-input"
 					/>
 				</div>
-				<div className="input-form--wrapper">
+				<div className="input-form-input--wrapper">
 					<div className="input-form-button-wrapper">
 						<button 
 							type="button"
