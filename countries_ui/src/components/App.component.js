@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InputForm from './InputForm.component.js';
 import CountriesDisplay from './CountriesDisplay.component.js';
+import '../styles/App.css';
 
 const countriesApiUrl = 'http://localhost:8000/countries_api/countries';
 
@@ -36,11 +37,10 @@ class App extends Component {
 			})
 	}
 
-	// TODO display data about countries
 	render() {
 		const {countries, results} = this.state;
 		return (
-			<div>
+			<div className="app-wrapper">
 				<InputForm
 					fetchCountries={this.fetchCountries}
 					results={results}

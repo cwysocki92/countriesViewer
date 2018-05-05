@@ -60,38 +60,43 @@ class CountriesDisplay extends Component {
 
 	get countryInfoCounts() {
 		const {countries} = this.props;
-		let uniqueRegions = this.getUniqueProperties(countries, 'region');
-		let uniqueSubregions = this.getUniqueProperties(countries, 'subregion');
-		let regionCounts = this.getRegionCounts(countries, uniqueRegions, 'region');
-		let subregionCounts = this.getRegionCounts(countries, uniqueSubregions, 'subregion');
-		let regions = uniqueRegions.map((region) => {
-			return (
-				<div className="country-region-appearances-wrapper">
-					<span className="country-property">{`${region} - `}</span>
-					<span>{regionCounts[region]}</span>
+		let regionInfo = (<div/>);
+		if (countries.length > 0) {
+			let uniqueRegions = this.getUniqueProperties(countries, 'region');
+			let uniqueSubregions = this.getUniqueProperties(countries, 'subregion');
+			let regionCounts = this.getRegionCounts(countries, uniqueRegions, 'region');
+			let subregionCounts = this.getRegionCounts(countries, uniqueSubregions, 'subregion');
+			let regions = uniqueRegions.map((region) => {
+				return (
+					<div className="country-region-appearances-wrapper" key={region}>
+						<span className="country-property">{`${region} - `}</span>
+						<span>{regionCounts[region]}</span>
+					</div>
+				)
+			});
+			let subregions = uniqueSubregions.map((subregion) => {
+				return (
+					<div className="country-region-appearances-wrapper" key={subregion}>
+						<span className="country-property">{`${subregion} - `}</span>
+						<span>{subregionCounts[subregion]}</span>
+					</div>
+				)
+			});
+			regionInfo = (
+				<div className="region-info-wrapper">
+					<div className="region-count-header">
+						Region Appearances
+					</div>
+					{regions}
+					<div className="region-count-header">
+						Subregion Appearances
+					</div>
+					{subregions}
 				</div>
 			)
-		});
-		let subregions = uniqueSubregions.map((subregion) => {
-			return (
-				<div className="country-region-appearances-wrapper">
-					<span className="country-property">{`${subregion} - `}</span>
-					<span>{subregionCounts[subregion]}</span>
-				</div>
-			)
-		});
-		return (
-			<div>
-				<div className="region-count-header">
-					Region Appearances
-				</div>
-				{regions}
-				<div className="region-count-header">
-					Subregion Appearances
-				</div>
-				{subregions}
-			</div>
-		)
+		}
+		return regionInfo
+		
 	}
 
 	render() {

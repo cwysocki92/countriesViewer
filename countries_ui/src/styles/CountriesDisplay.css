@@ -3,13 +3,12 @@
 	margin-bottom: 10px;
 	width: 50%;
 	display: inline-block;
-/*	height: 500px;
-*/	text-align: center;
+	text-align: center;
 }
 
 .country-wrapper {
 	margin-top: 10px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .country-property {
@@ -28,8 +27,13 @@
 }
 
 .country-region-appearances-wrapper {
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.region-info-wrapper {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 /* TODO: make the countries centered in the countries-display element */
