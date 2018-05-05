@@ -14,9 +14,9 @@ array_shift($path);
 
 switch($path[1]) {
 	case 'countries':
-		$countries = new Countries();
 		// direct to get based on $_Server contents
 		if (in_array($_SERVER['REQUEST_METHOD'], ['GET'])) {
+		    $countries = new Countries();
 			$countries->get($_GET);
 		} else {
 			header('HTTP/1.1 405 Method Not Allowed');

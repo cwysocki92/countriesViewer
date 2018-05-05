@@ -14,8 +14,18 @@ class CountriesModel {
 		
 		// TODO sort alphabetically by name and population
 		$result = curl_exec($this->curl);
-		// decode now, to avoid being encoded twice
-		return json_decode($result);
+		// limit results to 50
+		$result = array_slice(json_decode($result), 0, 50);
+		usort($result, function($first, $second) {
+			$nameDiff = strcmp($first->name, $second->name);
+			if ($nameDiff !== 0) {
+				return $nameDiff;
+			}
+			// TODO determine if this is even needed.  Countries shouldnt ever have the same name
+			return $first->population - $second->population;
+		});
+
+		return $result;
 	}
 
 	private function generateUrl($name, $fullName, $code) {
