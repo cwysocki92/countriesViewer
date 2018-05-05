@@ -10,7 +10,8 @@ class App extends Component {
 		super(props);
 		this.state = {
 			countries: [],
-			results: false
+			results: false,
+			networkError: false,
 		}
 	}
 
@@ -32,18 +33,27 @@ class App extends Component {
 					this.setState({
 						countries: response.data,
 						results: response.data.length > 0,
+						networkError: false,
 					});
 				}
+			})
+			.catch((err) => {
+				this.setState({networkError: true});
 			})
 	}
 
 	render() {
-		const {countries, results} = this.state;
+		const {
+			countries,
+			results,
+			networkError,
+		} = this.state;
 		return (
 			<div className="app-wrapper">
 				<InputForm
 					fetchCountries={this.fetchCountries}
 					results={results}
+					networkError={networkError}
 				/>
 				<CountriesDisplay
 					countries={countries}
