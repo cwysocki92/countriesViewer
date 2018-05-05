@@ -38,6 +38,12 @@ class InputForm extends Component {
 			params += `code=${countryCode}`;
 		}
 		fetch(`${countriesApiUrl}/${params}`)
+			.then((response) => response.json())
+			.then((response) => {
+				if (response) {
+					this.setState({submissionError: false});
+				}
+			})
 	}
 
 	onSubmit = () => {
