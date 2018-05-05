@@ -9,6 +9,7 @@ class App extends Component {
 		super(props);
 		this.state = {
 			countries: [],
+			results: false
 		}
 	}
 
@@ -20,26 +21,29 @@ class App extends Component {
 		let params = "?";
 		if (countryName) {
 			params += `name=${countryName}${fullName ? '&fullName=true' : ''}`;
-		} else {
+		} else if (countryCode) {
 			params += `code=${countryCode}`;
 		}
 		fetch(`${countriesApiUrl}/${params}`)
 			.then((response) => response.json())
 			.then((response) => {
 				if (response.status === 200) {
-					this.setState({countries: response.data});
+					this.setState({
+						countries: response.data,
+						results: response.data.length > 0,
+					});
 				}
 			})
 	}
 
 	// TODO display data about countries
 	render() {
-		const {countries} = this.state;
+		const {countries, results} = this.state;
 		return (
 			<div>
 				<InputForm
 					fetchCountries={this.fetchCountries}
-					resultsFound={countries.length > 0}
+					results={results}
 				/>
 				<CountriesDisplay
 					countries={countries}

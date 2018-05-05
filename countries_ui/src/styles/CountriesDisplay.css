@@ -9,6 +9,7 @@
 
 .country-wrapper {
 	margin-top: 10px;
+	margin-bottom: 20px;
 }
 
 .country-property {
@@ -19,6 +20,16 @@
 	max-height: 50%;
 	max-width: 50%;
 	margin-bottom: 10px;
+}
+
+.region-count-header {
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+.country-region-appearances-wrapper {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 /* TODO: make the countries centered in the countries-display element */

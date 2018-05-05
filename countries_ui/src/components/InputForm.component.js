@@ -48,10 +48,8 @@ class InputForm extends Component {
 		})
 	}
 
-	// TODO make sure only name or code is provided
 	render() {
-		const {resultsFound} = this.props;
-
+		const {results} = this.props;
 		const {
 			countryName,
 			countryCode,
@@ -89,7 +87,6 @@ class InputForm extends Component {
 							type="checkbox"
 							checked={fullName}
 							onChange={this.onFullNameCheck}
-							className="test"
 						/>
 					</div>
 				</div>
@@ -123,7 +120,7 @@ class InputForm extends Component {
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 digit Country Code is required</span>
 					}
-					{submitted && !resultsFound &&
+					{submitted && !results &&
 						<span className="submission-error">No Results found</span>
 					}
 				</div>

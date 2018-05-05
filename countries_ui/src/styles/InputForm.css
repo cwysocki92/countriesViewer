@@ -18,10 +18,6 @@
 	width: 180px;
 }
 
-.test {
-	display: inline-block;
-}
-
 .input-form-label--wrapper {
 	display: inline-block;
 	width: 250px;
@@ -48,6 +44,7 @@
 	width: 125px;
 	display: inline-block;
 	margin-left: 10px;
+	margin-right: 10px
 }
 
 .submission-error {

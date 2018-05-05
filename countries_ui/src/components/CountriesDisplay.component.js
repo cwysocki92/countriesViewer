@@ -4,7 +4,7 @@ import '../styles/CountriesDisplay.css';
 // TODO prop types!
 class CountriesDisplay extends Component {
 
-	generateCountries() {
+	get countriesDisplay() {
 		const {countries} = this.props;
 		return countries.map((country) => 
 			(<div className="country-wrapper" key={country.alpha3Code}>
@@ -41,11 +41,65 @@ class CountriesDisplay extends Component {
 		)
 	}
 
+	getUniqueProperties = (countries, key) => {
+		return countries.map(country => country[key]).filter((value, index, arr) => arr.indexOf(value) === index);
+	}
+
+	getRegionCounts = (countries, regions, key) => {
+		let counts = {};
+		regions.forEach((region) => {
+			counts[region] = 0;
+			countries.forEach((country) => {
+				if (country[key] === region) {
+					counts[region]++;
+				}			
+			})
+		})
+		return counts;
+	}
+
+	get countryInfoCounts() {
+		const {countries} = this.props;
+		let uniqueRegions = this.getUniqueProperties(countries, 'region');
+		let uniqueSubregions = this.getUniqueProperties(countries, 'subregion');
+		let regionCounts = this.getRegionCounts(countries, uniqueRegions, 'region');
+		let subregionCounts = this.getRegionCounts(countries, uniqueSubregions, 'subregion');
+		let regions = uniqueRegions.map((region) => {
+			return (
+				<div className="country-region-appearances-wrapper">
+					<span className="country-property">{`${region} - `}</span>
+					<span>{regionCounts[region]}</span>
+				</div>
+			)
+		});
+		let subregions = uniqueSubregions.map((subregion) => {
+			return (
+				<div className="country-region-appearances-wrapper">
+					<span className="country-property">{`${subregion} - `}</span>
+					<span>{subregionCounts[subregion]}</span>
+				</div>
+			)
+		});
+		return (
+			<div>
+				<div className="region-count-header">
+					Region Appearances
+				</div>
+				{regions}
+				<div className="region-count-header">
+					Subregion Appearances
+				</div>
+				{subregions}
+			</div>
+		)
+	}
+
 	render() {
 		const {countries} = this.props;
 		return (
 			<div className="countries-display">
-				{countries && this.generateCountries()}
+				{countries && this.countriesDisplay}
+				{countries && this.countryInfoCounts}
 			</div>
 		);
 	}
