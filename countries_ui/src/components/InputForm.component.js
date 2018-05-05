@@ -50,9 +50,9 @@ class InputForm extends Component {
 
 	// TODO make sure only name or code is provided
 	render() {
-		let {resultsFound} = this.props;
+		const {resultsFound} = this.props;
 
-		let {
+		const {
 			countryName,
 			countryCode,
 			submissionError,

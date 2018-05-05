@@ -34,8 +34,9 @@ class App extends Component {
 			})
 	}
 
+	// TODO display data about countries
 	render() {
-		let {countries} = this.state;
+		const {countries} = this.state;
 		return (
 			<div>
 				<InputForm
