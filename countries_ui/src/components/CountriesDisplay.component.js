@@ -27,11 +27,13 @@ class CountriesDisplay extends Component {
 				</div>
 				<div>
 					<span className="country-property">{`Region: `}</span>
-					<span>{country.region}</span>
+					{/* region will sometimes be empty */}
+					<span>{country.region ? country.region : "Unknown"}</span>
 				</div>
 				<div>
 					<span className="country-property">{`Subregion: `}</span>
-					<span>{country.subregion}</span>
+					{/* subregion will sometimes be empty */}
+					<span>{country.subregion ? country.subregion : "Unknown"}</span>
 				</div>
 				<div>
 					<span className="country-property">{`Population: `}</span>
@@ -41,7 +43,7 @@ class CountriesDisplay extends Component {
 		)
 	}
 
-	getUniqueProperties = (countries, key) => {
+	getUniqueRegions = (countries, key) => {
 		return countries.map(country => country[key]).filter((value, index, arr) => arr.indexOf(value) === index);
 	}
 
@@ -62,14 +64,17 @@ class CountriesDisplay extends Component {
 		const {countries} = this.props;
 		let regionInfo = (<div/>);
 		if (countries.length > 0) {
-			let uniqueRegions = this.getUniqueProperties(countries, 'region');
-			let uniqueSubregions = this.getUniqueProperties(countries, 'subregion');
+			let uniqueRegions = this.getUniqueRegions(countries, 'region');
+			let uniqueSubregions = this.getUniqueRegions(countries, 'subregion');
 			let regionCounts = this.getRegionCounts(countries, uniqueRegions, 'region');
 			let subregionCounts = this.getRegionCounts(countries, uniqueSubregions, 'subregion');
+
+			// 
 			let regions = uniqueRegions.map((region) => {
 				return (
 					<div className="country-region-appearances-wrapper" key={region}>
-						<span className="country-property">{`${region} - `}</span>
+						{/*  api will sometimes return no region*/}
+						<span>{`${region ? region : "Unknown Region"} - `}</span>
 						<span>{regionCounts[region]}</span>
 					</div>
 				)
@@ -77,7 +82,8 @@ class CountriesDisplay extends Component {
 			let subregions = uniqueSubregions.map((subregion) => {
 				return (
 					<div className="country-region-appearances-wrapper" key={subregion}>
-						<span className="country-property">{`${subregion} - `}</span>
+						{/* api will sometimes return no sub region*/}
+						<span>{`${subregion ? subregion : "Unknown Subegion"} - `}</span>
 						<span>{subregionCounts[subregion]}</span>
 					</div>
 				)
