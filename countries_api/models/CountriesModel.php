@@ -12,10 +12,14 @@ class CountriesModel {
 			CURLOPT_RETURNTRANSFER => True
 		));
 		
-		// TODO sort alphabetically by name and population
 		$result = curl_exec($this->curl);
+		$result = json_decode($result);
+		if (count($result) <= 1) {
+			return $result;
+		}
+
 		// limit results to 50
-		$result = array_slice(json_decode($result), 0, 50);
+		$result = array_slice($result, 0, 50);
 		usort($result, function($first, $second) {
 			$nameDiff = strcmp($first->name, $second->name);
 			if ($nameDiff !== 0) {

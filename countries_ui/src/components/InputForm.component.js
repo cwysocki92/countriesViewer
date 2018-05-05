@@ -62,7 +62,7 @@ class InputForm extends Component {
 
 		return (
 			<form className="input-form">
-				<div className="input-form-wrapper">
+				<div className="input-form--wrapper">
 					<label 
 						htmlFor="countryName"
 						className="input-form-label"			
@@ -77,19 +77,23 @@ class InputForm extends Component {
 						id="countryName"
 						className="input-form-input"
 					/>
-					<label 
-						htmlFor="countryName"
-						className="input-form-label--checkbox"			
-					>
-						Use Country Full Name
-					</label>
-					<input
-						type="checkbox"
-						checked={fullName}
-						onChange={this.onFullNameCheck}
-					/>
+					<div className="input-form-label--wrapper">
+						<label 
+							htmlFor="fullName"
+							className="input-form-label-checkbox"			
+						>
+							Use Country Full Name
+						</label>
+						<input
+							id="fullName"
+							type="checkbox"
+							checked={fullName}
+							onChange={this.onFullNameCheck}
+							className="test"
+						/>
+					</div>
 				</div>
-				<div className="input-form-wrapper">
+				<div className="input-form--wrapper">
 					<label 
 						htmlFor="countryCode"
 						className="input-form-label"			
@@ -106,7 +110,7 @@ class InputForm extends Component {
 						className="input-form-input"
 					/>
 				</div>
-				<div className="input-form-wrapper">
+				<div className="input-form--wrapper">
 					<div className="input-form-button-wrapper">
 						<button 
 							type="button"
@@ -117,7 +121,7 @@ class InputForm extends Component {
 						</button>
 					</div>
 					{submissionError && 
-						<span className="submission-error">Country Name or a 2 or 3 digit Country code is required</span>
+						<span className="submission-error">Country Name or a 2 or 3 digit Country Code is required</span>
 					}
 					{submitted && !resultsFound &&
 						<span className="submission-error">No Results found</span>

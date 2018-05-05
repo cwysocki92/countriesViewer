@@ -5,14 +5,25 @@
 	width: 125px;
 }
 
-.input-form-label--checkbox {
-	margin: 10px;
+.input-form-label-checkbox {
+	margin-right: 10px;
 	font-weight: 700;
 	display: inline-block;
 	width: 180px;
 }
 
-.input-form-wrapper {
+.test {
+	display: inline-block;
+}
+
+.input-form-label--wrapper {
+	display: inline-block;
+	width: 250px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.input-form--wrapper {
 	margin: 10px;
 }
 
