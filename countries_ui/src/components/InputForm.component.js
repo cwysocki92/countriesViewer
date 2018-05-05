@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/InputForm.css';
 
-const countriesApiUrl = 'http://localhost:8000/countries_api/countries';
-
 // TODO prop types!
 class InputForm extends Component {
 	constructor(props) {
@@ -12,6 +10,7 @@ class InputForm extends Component {
 			countryCode: "",
 			submissionError: false,
 			fullName: false,
+			submitted: false,
 		}
 	}
 
@@ -29,33 +28,18 @@ class InputForm extends Component {
 		}
 	}
 
-	fetchCountries = () => {
-		let {countryName, countryCode, submissionError, fullName} = this.state;
-		let params = "?";
-		if (countryName) {
-			params += `name=${countryName}${fullName ? '&fullName=true' : ''}`;
-		} else {
-			params += `code=${countryCode}`;
-		}
-		fetch(`${countriesApiUrl}/${params}`)
-			.then((response) => response.json())
-			.then((response) => {
-				if (response) {
-					this.setState({submissionError: false});
-				}
-			})
-	}
-
 	onSubmit = () => {
-		let {countryName, countryCode} = this.state;
-		let {onSubmit} = this.props;
-		if (countryName || countryCode) {
-			this.fetchCountries();
-			// onSubmit && onSubmit(countryName, countryCode);
+		let {countryName, countryCode, fullName} = this.state;
+		let {fetchCountries} = this.props;
+		// hitting rest countries with country code of 1 causes errors
+		if (countryName || (countryCode && (countryCode.length === 2 || countryCode.length === 3))) {
+			fetchCountries && fetchCountries(countryName, countryCode, fullName);
+			// set flag stating a submission has been made
+			this.setState({submitted:true});
 		} else {
-			this.setState({submissionError: true})
+			this.setState({submissionError: true});
 		}
-		// TODO check if the country code is valid (2 or 3 characters)
+
 	}
 
 	onFullNameCheck = () => {
@@ -66,11 +50,14 @@ class InputForm extends Component {
 
 	// TODO make sure only name or code is provided
 	render() {
+		let {resultsFound} = this.props;
+
 		let {
 			countryName,
 			countryCode,
 			submissionError,
 			fullName,
+			submitted,
 		} = this.state;
 
 		return (
@@ -130,7 +117,10 @@ class InputForm extends Component {
 						</button>
 					</div>
 					{submissionError && 
-						<span className="submission-error">Country Name or Country code is required</span>
+						<span className="submission-error">Country Name or a 2 or 3 digit Country code is required</span>
+					}
+					{submitted && !resultsFound &&
+						<span className="submission-error">No Results found</span>
 					}
 				</div>
 			</form>
