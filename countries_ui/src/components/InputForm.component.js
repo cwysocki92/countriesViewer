@@ -49,7 +49,7 @@ class InputForm extends Component {
 	}
 
 	render() {
-		const {results} = this.props;
+		const {results, networkError} = this.props;
 		const {
 			countryName,
 			countryCode,
@@ -122,6 +122,10 @@ class InputForm extends Component {
 					}
 					{submitted && !results &&
 						<span className="submission-error">No Results found</span>
+					}
+					{networkError &&
+						<span className="submission-error">Network Error.  Please Try again.</span>
+
 					}
 				</div>
 			</form>
