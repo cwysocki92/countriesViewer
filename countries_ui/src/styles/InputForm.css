@@ -40,6 +40,7 @@
 .input-form-button-wrapper {
 	width: 125px;
 	display: inline-block;
+	margin-left: 10px;
 }
 
 .submission-error {
