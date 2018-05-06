@@ -21,7 +21,7 @@
 	margin-bottom: 10px;
 }
 
-.region-count-header {
+.count-header {
 	font-weight: 700;
 	text-decoration: underline;
 }
@@ -34,4 +34,9 @@
 .region-info-wrapper {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.country-languages {
+	font-weight: 700;
+	text-decoration: underline;
 }
