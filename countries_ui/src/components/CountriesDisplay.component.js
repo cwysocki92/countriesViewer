@@ -14,30 +14,34 @@ class CountriesDisplay extends Component {
 					className="country-flag"
 				/>
 				<div>
-					<span className="country-property">{`Country Name: `}</span>
+					<span className="country-property">Country Name: </span>
 					<span>{country.name}</span>
 				</div>
 				<div>
-					<span className="country-property">{`Alpha Code 2: `}</span>
+					<span className="country-property">Alpha Code 2: </span>
 					<span>{country.alpha2Code}</span>
 				</div>
 				<div>
-					<span className="country-property">{`Alpha Code 3: `}</span>
+					<span className="country-property">Alpha Code 3: </span>
 					<span>{country.alpha3Code}</span>
 				</div>
 				<div>
-					<span className="country-property">{`Region: `}</span>
+					<span className="country-property">Region: </span>
 					{/* region will sometimes be empty */}
 					<span>{country.region ? country.region : "Unknown"}</span>
 				</div>
 				<div>
-					<span className="country-property">{`Subregion: `}</span>
+					<span className="country-property">Subregion: </span>
 					{/* subregion will sometimes be empty */}
 					<span>{country.subregion ? country.subregion : "Unknown"}</span>
 				</div>
 				<div>
-					<span className="country-property">{`Population: `}</span>
+					<span className="country-property">Population: </span>
 					<span>{country.population}</span>
+				</div>
+				<div>
+					<div className="country-languages">Langagues: </div>
+					{country.languages.map((language) => (<div>{language.name}</div>))}
 				</div>
 			</div>)
 		)
