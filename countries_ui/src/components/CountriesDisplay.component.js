@@ -94,19 +94,19 @@ class CountriesDisplay extends Component {
 			});
 			regionInfo = (
 				<div className="region-info-wrapper">
-					<div className="region-count-header">
+					<div className="count-header">{`Total Countries: ${countries.length}`}</div>
+					<div className="count-header">
 						Region Appearances
 					</div>
 					{regions}
-					<div className="region-count-header">
+					<div className="count-header">
 						Subregion Appearances
 					</div>
 					{subregions}
 				</div>
 			)
 		}
-		return regionInfo
-		
+		return regionInfo;
 	}
 
 	render() {
