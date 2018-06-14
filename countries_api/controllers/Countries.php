@@ -11,9 +11,6 @@ class Countries {
 		$name = $get['name'];
 		$fullName = boolval($get['fullName']);
 		$code = $get['code'];
-		$response['name'] = $name;
-		$response['fullName'] = $fullName;
-		$response['code'] = $code;
 		if (!empty($name) || !empty($code)) {
 			$resp = $this->countriesModel->getCountries($name, $fullName, $code);
 			$this->response(200, 'Countries', $resp);
