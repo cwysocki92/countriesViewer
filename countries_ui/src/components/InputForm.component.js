@@ -118,7 +118,7 @@ class InputForm extends Component {
 						</button>
 					</div>
 					{submissionError && 
-						<span className="submission-error">Country Name or a 2 or 3 digit Country Code is required</span>
+						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
 					{submitted && !results &&
 						<span className="submission-error">No Results found</span>
