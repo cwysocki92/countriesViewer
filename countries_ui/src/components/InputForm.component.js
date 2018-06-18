@@ -11,7 +11,12 @@ class InputForm extends Component {
 			submissionError: false,
 			fullName: false,
 			submitted: false,
+			networkError: false,
 		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({networkError: nextProps.networkError});
 	}
 
 	handleCountryNameChange = (name) => {
@@ -37,7 +42,10 @@ class InputForm extends Component {
 			// set flag stating a submission has been made
 			this.setState({submitted:true});
 		} else {
-			this.setState({submissionError: true});
+			this.setState({
+				submissionError: true,
+				networkError: false,
+			});
 		}
 
 	}
@@ -49,13 +57,14 @@ class InputForm extends Component {
 	}
 
 	render() {
-		const {results, networkError} = this.props;
+		const {results} = this.props;
 		const {
 			countryName,
 			countryCode,
 			submissionError,
 			fullName,
 			submitted,
+			networkError,
 		} = this.state;
 
 		return (
@@ -120,7 +129,7 @@ class InputForm extends Component {
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
-					{submitted && !results &&
+					{submitted && !results && !networkError &&
 						<span className="submission-error">No Results found</span>
 					}
 					{networkError &&
