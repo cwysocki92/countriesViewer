@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import '../styles/CountriesDisplay.css';
 
-// TODO prop types!
+/**
+ * TODO propTypes
+ * make container and get countries from store
+ */
+
+// TODO possibly rename this to Countries / remove Countries Display to match container name of CountriesContainer ?
 class CountriesDisplay extends Component {
 
 	get countriesDisplay() {

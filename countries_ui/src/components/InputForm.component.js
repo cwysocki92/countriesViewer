@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import '../styles/InputForm.css';
 
-// TODO prop types!
+/**
+ * TODO proptypes
+ * Add a input form container to get the countryName, countryCode, and fullName from the store
+ * Move fetchCountries to be passed in from container
+ */
+
 class InputForm extends Component {
 	constructor(props) {
 		super(props);
@@ -100,7 +105,7 @@ class InputForm extends Component {
 					</div>
 				</div>
 				<div className="input-form-input--wrapper">
-					<label 
+					<label
 						htmlFor="countryCode"
 						className="input-form-label"			
 					>
