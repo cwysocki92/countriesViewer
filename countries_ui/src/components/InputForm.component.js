@@ -129,7 +129,7 @@ class InputForm extends Component {
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
-					{submitted && !results && !networkError &&
+					{submitted && !results && !networkError && !submissionError &&
 						<span className="submission-error">No Results found</span>
 					}
 					{networkError &&
