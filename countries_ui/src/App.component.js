@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import InputForm from './InputForm.component.js';
-import CountriesDisplay from './CountriesDisplay.component.js';
-import '../styles/App.css';
+import InputForm from './app/components/InputForm.component.js';
+import CountriesDisplay from './app/components/CountriesDisplay.component.js';
+import './app/styles/App.css';
 
 const countriesApiUrl = 'http://localhost:8000/countries_api/countries';
 
+/**
+ * TODO ideally, this should at least have a home route, but routes have yet to be
+ * implemented.
+ */
 class App extends Component {
 	constructor(props) {
 		super(props);
