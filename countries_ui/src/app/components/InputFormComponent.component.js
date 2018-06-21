@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import '../styles/InputForm.css';
+import PropTypes from 'prop-types';
 
-/**
- * TODO proptypes
- * Add a input form container to get the countryName, countryCode, and fullName from the store
- * Move fetchCountries to be passed in from container
- */
+class InputFormComponent extends Component {
 
-class InputForm extends Component {
+	static proptypes = {
+		countries: PropTypes.array.isRequired,
+		countryName: PropTypes.string.isRequired,
+		countryCode: PropTypes.string.isRequired,
+		fullName: PropTypes.bool.isRequired,
+		networkError: PropTypes.bool.isRequired,
+		onSubmit: PropTypes.func,
+		setCountryName: PropTypes.func.isRequired,
+		setCountryCode: PropTypes.func.isRequired,
+		toggleFullName: PropTypes.func.isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			countryName: "",
-			countryCode: "",
 			submissionError: false,
-			fullName: false,
+			/**
+			 * TODO set a flag in container level to signal when a request
+			 * is complete.  This is clunky and awkward, and causes a small
+			 * period of time where "No Results found" is displayed ahead of time
+			 */
 			submitted: false,
-			networkError: false,
 		}
 	}
 
@@ -25,51 +34,46 @@ class InputForm extends Component {
 	}
 
 	handleCountryNameChange = (name) => {
-		this.setState({countryName: name});
+		this.props.setCountryName(name);
 		if (name) {
 			this.setState({submissionError: false})
 		}
 	}
 
 	handleCountryCodeChange = (code) => {
-		this.setState({countryCode: code})
+		this.props.setCountryCode(code);
 		if (code) {
 			this.setState({submissionError: false})
 		}
 	}
 
 	onSubmit = () => {
-		let {countryName, countryCode, fullName} = this.state;
-		let {fetchCountries} = this.props;
+		let {countryName, countryCode, fullName, onSubmit} = this.props;
 		// hitting rest countries with country code of 1 causes errors
 		if (countryName || (countryCode && (countryCode.length === 2 || countryCode.length === 3))) {
-			fetchCountries && fetchCountries(countryName, countryCode, fullName);
+			onSubmit && onSubmit(countryName, countryCode, fullName);
 			// set flag stating a submission has been made
-			this.setState({submitted:true});
+			this.setState({submitted: true});
 		} else {
 			this.setState({
 				submissionError: true,
-				networkError: false,
 			});
 		}
 
 	}
 
-	onFullNameCheck = () => {
-		this.setState({
-			fullName: !this.state.fullName
-		})
-	}
-
 	render() {
-		const {results} = this.props;
 		const {
+			countries,
 			countryName,
 			countryCode,
-			submissionError,
+			toggleFullName,
 			fullName,
-			submitted,
 			networkError,
+		} = this.props;
+		const {
+			submissionError,
+			submitted,
 		} = this.state;
 
 		return (
@@ -100,7 +104,7 @@ class InputForm extends Component {
 							id="fullName"
 							type="checkbox"
 							checked={fullName}
-							onChange={this.onFullNameCheck}
+							onChange={toggleFullName}
 						/>
 					</div>
 				</div>
@@ -123,6 +127,7 @@ class InputForm extends Component {
 				</div>
 				<div className="input-form-input--wrapper">
 					<div className="input-form-button-wrapper">
+						{/* Add a clear button beside submit button*/}
 						<button 
 							type="button"
 							onClick={this.onSubmit}
@@ -134,7 +139,7 @@ class InputForm extends Component {
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
-					{submitted && !results && !networkError && !submissionError &&
+					{submitted && !(countries.length > 0) && !networkError && !submissionError &&
 						<span className="submission-error">No Results found</span>
 					}
 					{networkError &&
@@ -147,4 +152,4 @@ class InputForm extends Component {
 	}
 }
 
-export default InputForm;
+export default InputFormComponent;

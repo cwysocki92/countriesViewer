@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import '../styles/CountriesDisplay.css';
-
-/**
- * TODO propTypes
- * make container and get countries from store
- */
+import PropTypes from 'prop-types';
 
 // TODO possibly rename this to Countries / remove Countries Display to match container name of CountriesContainer ?
-class CountriesDisplay extends Component {
+class CountriesComponent extends Component {
+
+	static proptypes = {
+		countries: PropTypes.array.isRequired,
+	};
 
 	get countriesDisplay() {
 		const {countries} = this.props;
@@ -46,7 +46,7 @@ class CountriesDisplay extends Component {
 				</div>
 				<div>
 					<div className="country-languages">Langagues: </div>
-					{country.languages.map((language) => (<div>{language.name}</div>))}
+					{country.languages.map((language) => (<div key={language.iso639_2}>{language.name}</div>))}
 				</div>
 			</div>)
 		)
@@ -125,4 +125,4 @@ class CountriesDisplay extends Component {
 	}
 }
 
-export default CountriesDisplay;
+export default CountriesComponent;
