@@ -6,6 +6,7 @@ import {
     TOGGLE_FULL_NAME,
     DISPLAY_NETWORK_ERROR,
     HIDE_NETWORK_ERROR,
+    FETCHING_DATA,
 } from './actionTypes.js';
 
 export const setCountries = (countries) => ({
@@ -37,5 +38,10 @@ export const displayNetworkError = () => ({
 
 export const hideNetworkError = () => ({
     type: HIDE_NETWORK_ERROR
+})
+
+export const setFetchingData = (inProgress) => ({
+    type: FETCHING_DATA,
+    fetchInProgress: inProgress
 })
 

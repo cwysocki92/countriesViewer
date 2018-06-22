@@ -6,6 +6,7 @@ import {
     TOGGLE_FULL_NAME,
     DISPLAY_NETWORK_ERROR,
     HIDE_NETWORK_ERROR,
+    FETCHING_DATA,
 } from './actionTypes.js';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
     countryName: "",
     countryCode: "",
     fullName: false,
-    networkError: false
+    networkError: false,
+    fetchInProgress: false,
 };
 
 /**
@@ -59,6 +61,11 @@ const countriesViewer = (state = initialState, action) => {
             return {
                 ...state,
                 networkError: false
+            }
+        case FETCHING_DATA:
+            return {
+                ...state,
+                fetchInProgress: action.fetchInProgress
             }
         default:
             return state;

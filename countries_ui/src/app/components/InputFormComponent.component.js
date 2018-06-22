@@ -14,23 +14,15 @@ class InputFormComponent extends Component {
 		setCountryName: PropTypes.func.isRequired,
 		setCountryCode: PropTypes.func.isRequired,
 		toggleFullName: PropTypes.func.isRequired,
+		fetchInProgress: PropTypes.bool.isRequired,
 	};
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			submissionError: false,
-			/**
-			 * TODO set a flag in container level to signal when a request
-			 * is complete.  This is clunky and awkward, and causes a small
-			 * period of time where "No Results found" is displayed ahead of time
-			 */
 			submitted: false,
 		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.setState({networkError: nextProps.networkError});
 	}
 
 	handleCountryNameChange = (name) => {
@@ -57,6 +49,7 @@ class InputFormComponent extends Component {
 		} else {
 			this.setState({
 				submissionError: true,
+				submitted: false,
 			});
 		}
 
@@ -70,6 +63,7 @@ class InputFormComponent extends Component {
 			toggleFullName,
 			fullName,
 			networkError,
+			fetchInProgress
 		} = this.props;
 		const {
 			submissionError,
@@ -136,15 +130,17 @@ class InputFormComponent extends Component {
 							Submit
 						</button>
 					</div>
+					{fetchInProgress && 
+						<span className="fetching-data">Fetching countries...</span>
+					}
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
-					{submitted && !(countries.length > 0) && !networkError && !submissionError &&
-						<span className="submission-error">No Results found</span>
-					}
 					{networkError &&
 						<span className="submission-error">Network Error.  Please Try again.</span>
-
+					}
+					{submitted && !fetchInProgress && !networkError && countries.length < 1 &&
+						<span className="submission-error">No Results found</span>
 					}
 				</div>
 			</form>

@@ -6,11 +6,13 @@ import  {
     getCountryCode,
     useFullName,
     getNetWorkError,
+    getFetchInProgress,
 } from '../redux/selectors.js';
 import { 
     setCountryName,
     setCountryCode,
     toggleFullName,
+    setFetchingData,
  } from '../redux/actions';
  import { getCountries } from '../redux/thunks';
 
@@ -21,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
         countryCode: getCountryCode(state),
         fullName: useFullName(state),
         networkError:  getNetWorkError(state),
+        fetchInProgress: getFetchInProgress(state),
     }
 }
 
@@ -36,13 +39,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(toggleFullName())
         },
         onSubmit: (countryName, countryCode, fullName) => {
-            /**
-             * TODO
-             * Set a flag to signal data has completed loading.  Or
-             * possibly display a loading icon. Currently the no results
-             * found flag will be displayed in between requests
-             */
+            dispatch(setFetchingData(true));
             dispatch(getCountries(countryName, countryCode, fullName))
+                .then(() => dispatch(setFetchingData(false)));
         }
     }
 }
