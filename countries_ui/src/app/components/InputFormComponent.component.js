@@ -15,6 +15,7 @@ class InputFormComponent extends Component {
 		setCountryCode: PropTypes.func.isRequired,
 		toggleFullName: PropTypes.func.isRequired,
 		fetchInProgress: PropTypes.bool.isRequired,
+		clearInput: PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
@@ -52,8 +53,12 @@ class InputFormComponent extends Component {
 				submitted: false,
 			});
 		}
-
 	}
+
+	clearInput = () => {
+		this.props.clearInput();
+		this.setState({submitted: false});
+	} 
 
 	render() {
 		const {
@@ -63,7 +68,7 @@ class InputFormComponent extends Component {
 			toggleFullName,
 			fullName,
 			networkError,
-			fetchInProgress
+			fetchInProgress,
 		} = this.props;
 		const {
 			submissionError,
@@ -121,13 +126,19 @@ class InputFormComponent extends Component {
 				</div>
 				<div className="input-form-input--wrapper">
 					<div className="input-form-button-wrapper">
-						{/* Add a clear button beside submit button*/}
 						<button 
 							type="button"
 							onClick={this.onSubmit}
 							className="input-form-submit"
 						>
 							Submit
+						</button>
+						<button 
+							type="button"
+							onClick={this.clearInput}
+							className="input-form-submit"
+						>
+							Clear
 						</button>
 					</div>
 					{fetchInProgress && 

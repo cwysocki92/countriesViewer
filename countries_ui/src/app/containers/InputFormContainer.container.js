@@ -13,10 +13,11 @@ import {
     setCountryCode,
     toggleFullName,
     setFetchingData,
+    clearInput,
  } from '../redux/actions';
  import { getCountries } from '../redux/thunks';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         countries: getCountryResults(state),
         countryName: getCountryName(state),
@@ -42,7 +43,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(setFetchingData(true));
             dispatch(getCountries(countryName, countryCode, fullName))
                 .then(() => dispatch(setFetchingData(false)));
-        }
+        },
+        clearInput: () => (dispatch(clearInput()))
     }
 }
 

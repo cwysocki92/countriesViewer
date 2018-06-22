@@ -7,6 +7,7 @@ import {
     DISPLAY_NETWORK_ERROR,
     HIDE_NETWORK_ERROR,
     FETCHING_DATA,
+    CLEAR_INPUT,
 } from './actionTypes.js';
 
 export const setCountries = (countries) => ({
@@ -43,5 +44,9 @@ export const hideNetworkError = () => ({
 export const setFetchingData = (inProgress) => ({
     type: FETCHING_DATA,
     fetchInProgress: inProgress
+})
+
+export const clearInput = () => ({
+    type: CLEAR_INPUT
 })
 

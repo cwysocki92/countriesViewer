@@ -7,6 +7,7 @@ import {
     DISPLAY_NETWORK_ERROR,
     HIDE_NETWORK_ERROR,
     FETCHING_DATA,
+    CLEAR_INPUT,
 } from './actionTypes.js';
 
 const initialState = {
@@ -67,6 +68,8 @@ const countriesViewer = (state = initialState, action) => {
                 ...state,
                 fetchInProgress: action.fetchInProgress
             }
+        case CLEAR_INPUT:
+            return {...initialState}
         default:
             return state;
     }
