@@ -1,70 +1,78 @@
 import React, { Component } from 'react';
 import '../styles/InputForm.css';
+import PropTypes from 'prop-types';
 
-// TODO prop types!
-class InputForm extends Component {
+class InputFormComponent extends Component {
+
+	static proptypes = {
+		countries: PropTypes.array.isRequired,
+		countryName: PropTypes.string.isRequired,
+		countryCode: PropTypes.string.isRequired,
+		fullName: PropTypes.bool.isRequired,
+		networkError: PropTypes.bool.isRequired,
+		onSubmit: PropTypes.func,
+		setCountryName: PropTypes.func.isRequired,
+		setCountryCode: PropTypes.func.isRequired,
+		toggleFullName: PropTypes.func.isRequired,
+		fetchInProgress: PropTypes.bool.isRequired,
+		clearInput: PropTypes.func.isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			countryName: "",
-			countryCode: "",
 			submissionError: false,
-			fullName: false,
 			submitted: false,
-			networkError: false,
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({networkError: nextProps.networkError});
-	}
-
 	handleCountryNameChange = (name) => {
-		this.setState({countryName: name});
+		this.props.setCountryName(name);
 		if (name) {
 			this.setState({submissionError: false})
 		}
 	}
 
 	handleCountryCodeChange = (code) => {
-		this.setState({countryCode: code})
+		this.props.setCountryCode(code);
 		if (code) {
 			this.setState({submissionError: false})
 		}
 	}
 
 	onSubmit = () => {
-		let {countryName, countryCode, fullName} = this.state;
-		let {fetchCountries} = this.props;
+		let {countryName, countryCode, fullName, onSubmit} = this.props;
 		// hitting rest countries with country code of 1 causes errors
 		if (countryName || (countryCode && (countryCode.length === 2 || countryCode.length === 3))) {
-			fetchCountries && fetchCountries(countryName, countryCode, fullName);
+			onSubmit && onSubmit(countryName, countryCode, fullName);
 			// set flag stating a submission has been made
-			this.setState({submitted:true});
+			this.setState({submitted: true});
 		} else {
 			this.setState({
 				submissionError: true,
-				networkError: false,
+				submitted: false,
 			});
 		}
-
 	}
 
-	onFullNameCheck = () => {
-		this.setState({
-			fullName: !this.state.fullName
-		})
-	}
+	clearInput = () => {
+		this.props.clearInput();
+		this.setState({submitted: false});
+	} 
 
 	render() {
-		const {results} = this.props;
 		const {
+			countries,
 			countryName,
 			countryCode,
-			submissionError,
+			toggleFullName,
 			fullName,
-			submitted,
 			networkError,
+			fetchInProgress,
+		} = this.props;
+		const {
+			submissionError,
+			submitted,
 		} = this.state;
 
 		return (
@@ -95,12 +103,12 @@ class InputForm extends Component {
 							id="fullName"
 							type="checkbox"
 							checked={fullName}
-							onChange={this.onFullNameCheck}
+							onChange={toggleFullName}
 						/>
 					</div>
 				</div>
 				<div className="input-form-input--wrapper">
-					<label 
+					<label
 						htmlFor="countryCode"
 						className="input-form-label"			
 					>
@@ -125,16 +133,25 @@ class InputForm extends Component {
 						>
 							Submit
 						</button>
+						<button 
+							type="button"
+							onClick={this.clearInput}
+							className="input-form-submit"
+						>
+							Clear
+						</button>
 					</div>
+					{fetchInProgress && 
+						<span className="fetching-data">Fetching countries...</span>
+					}
 					{submissionError && 
 						<span className="submission-error">Country Name or a 2 or 3 character Country Code is required</span>
 					}
-					{submitted && !results && !networkError && !submissionError &&
-						<span className="submission-error">No Results found</span>
-					}
 					{networkError &&
 						<span className="submission-error">Network Error.  Please Try again.</span>
-
+					}
+					{submitted && !fetchInProgress && !networkError && countries.length < 1 &&
+						<span className="submission-error">No Results found</span>
 					}
 				</div>
 			</form>
@@ -142,4 +159,4 @@ class InputForm extends Component {
 	}
 }
 
-export default InputForm;
+export default InputFormComponent;
